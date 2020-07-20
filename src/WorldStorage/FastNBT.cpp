@@ -638,7 +638,7 @@ void cFastNBTWriter::AddByteArray(const AString & a_Name, const char * a_Value, 
 
 
 
-void cFastNBTWriter::AddIntArray(const AString & a_Name, const int * a_Value, size_t a_NumElements)
+void cFastNBTWriter::AddIntArray(const AString & a_Name, const Int32 * a_Value, size_t a_NumElements)
 {
 	TagCommon(a_Name, TAG_IntArray);
 	UInt32 len = htonl(static_cast<UInt32>(a_NumElements));
@@ -646,7 +646,7 @@ void cFastNBTWriter::AddIntArray(const AString & a_Name, const int * a_Value, si
 	size_t size = m_Result.length();
 	if ((cap - size) < (4 + a_NumElements * 4))
 	{
-		m_Result.reserve(size + 4 + (a_NumElements * 4));
+		m_Result.reserve(size + 4 + (a_NumElements * 4));  // TODO: why _size_ + 4 ...?
 	}
 	m_Result.append(reinterpret_cast<const char *>(&len), 4);
 	for (size_t i = 0; i < a_NumElements; i++)
